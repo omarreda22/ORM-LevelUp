@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'students',
+    'second_database',
+    'third_database',
 ]
 
 MIDDLEWARE = [
@@ -74,17 +76,41 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 ## Multiple Database [ 'sqlite' - 'postgress' - 'mysql' ]
-# here
 
+DATABASES = {
+    'default': {},
+    'first': { ## Postgres SQL
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'first_db',
+        'USER': 'postgres',
+        'PASSWORD': '*******',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    },
+    'second_db': { # sqlLite DataBase
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'second.db.sqlite3', #### note 'second_db.db.sqlite3' not just 'db.sqlite3'
+    },
+    'third_with_mysql':{
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'third_multiple_db',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '',
+    }
+}
+
+DATABASE_ROUTERS = ['Routers.routers.AuthRouter', 'Routers.routers.Second_db', 'Routers.routers.Third_db']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

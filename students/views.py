@@ -156,6 +156,71 @@ def student_list(request):
     -------------------------------------------------------------------------------------------------------------
     -------------------------------------------------------------------------------------------------------------
 
+    ## Django Multiple Database
 
+    - Model.objects.using('db_name').all()
+    
+    1- make 
+    
+    DATABASES = {
+        'default': {},
+        'first': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'first_db',
+            'USER': 'postgres',
+            'PASSWORD': '20708077r',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
+    DATABASE_ROUTERS = ['Routers.routers.AuthRouter']
+
+    2. make routers folder --> https://docs.djangoproject.com/en/4.1/topics/db/multi-db/
+
+    3. 
+    py manage.py makemirations
+
+    - when migrate you have speak to --database= ~~
+        py manage.py migrate --database=first
+        py manage.py createsuperuser --database=first
+        first one for 'auth', 'contenttypes' (users and admin)
+
+    4. second db
+        1. add too databases 
+            },
+            'second_db': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'second.db.sqlite3', #### note 'second_db.db.sqlite3' not just 'db.sqlite3'
+            }
+
+        2. add new router
+            DATABASE_ROUTERS = ['Routers.routers.Second_bd']
+
+        3. handle router.py file with new database
+
+        4. py manage.py makemirations
+
+        5. py manage.py migrate --database=second_db
+
+    5. third database
+        1. add too databases 
+            },
+            'third_with_mysql':{
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'third_multiple_db',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': '127.0.0.1',
+            'PORT': '',
+        }
+
+        2. add new router
+            DATABASE_ROUTERS = [, 'Routers.routers.Third_db']
+
+        3. handle router.py file with new database
+
+        4. py manage.py makemirations
+
+        5. py manage.py migrate --database=third database
 """

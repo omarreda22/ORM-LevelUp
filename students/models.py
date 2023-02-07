@@ -19,7 +19,7 @@ class ItemA(Student):
     class_number = models.IntegerField()
 
     def __str__(self):
-        return self.class_number
+        return str(self.class_number)
 
     class Meta(Student.Meta):
         ordering = ['class_number']
