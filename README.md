@@ -3,7 +3,7 @@ Some Object–relational Mapping(ORM) instructions
 
 
 ## Using Multiple Database [ Postgres - MySql - Sqlite]
-```
+```yaml
 DATABASES = {
     'default': {},
     'first': { ## Postgres SQL
