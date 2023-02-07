@@ -3,8 +3,7 @@ Some Object–relational Mapping(ORM) instructions
 
 
 ## Using Multiple Database [ Postgres - MySql - Sqlite]
-
-"""
+```
 DATABASES = {
     'default': {},
     'first': { ## Postgres SQL
@@ -30,4 +29,4 @@ DATABASES = {
 }
 
 DATABASE_ROUTERS = ['Routers.routers.AuthRouter', 'Routers.routers.Second_db', 'Routers.routers.Third_db']
-"""
+```
