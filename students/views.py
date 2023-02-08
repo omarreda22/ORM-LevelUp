@@ -223,4 +223,58 @@ def student_list(request):
         4. py manage.py makemirations
 
         5. py manage.py migrate --database=third database
+
+
+
+    -------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------
+
+    # Transaction Atomicity ( code as one unit )
+    
+
+    ## act the block of code as a one unit don't save any query action until all successfully
+
+    ---- bank transaction example:
+
+        payor = user.objects.get(name=name)
+        payor.balance -= money
+        payor.save()
+
+        payee = user.objects.get(name=name)
+        payee.balance -= money
+        payee.save()
+
+        --- problem --> if payee don't exist, payor balance will decrease actually
+
+
+        payor = users.objects.select_for_update().get(name=name)
+        payee = users.objects.select_for_update().get(name=name)
+
+        with transaction.atomic():
+            ""
+                This block execute as a unit
+            ""
+            payor.balance -= money
+            payor.save()
+
+            payee.balance -= money
+            payee.save()
+
+
+
+    -- How to use transaction atomic
+
+        from django.db import transaction
+
+        - as a decorator
+        @transaction.atomic()
+
+        - using as context manager:
+        with transaction.atomic():
+            name.object.get()
+
+    ## This operations must be committed as a unit they are wrapped with our transaction
+
+
+
 """
