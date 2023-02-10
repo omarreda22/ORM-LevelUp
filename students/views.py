@@ -276,5 +276,59 @@ def student_list(request):
     ## This operations must be committed as a unit they are wrapped with our transaction
 
 
+    ----------------------------------------------------------------------------------------------------------
+
+    -- Django Aggregation
+
+    we have products table and want to sum price for all items 
+    we need to get average for sum of price
+    
+    from django.db.models import Sum
+    
+    Products.objects.aggregate(Sum('price'))
+    >>> {'age__sum': 84}
+    a = Products.objects.aggregate(Sum('price'))
+
+    to change 'age__sum'
+    a = Products.objects.aggregate(new_name=Sum('price'))
+    >>> {'new_name': 84}
+
+    a['new_name']
+    >>> 84
+    
+
+    from django.db.models import Sum, Max, Min, Avg
+    a = Products.objects.aggregate(Sum('price'), Avg('price'), Max('price'))
+
+    
+    >>> data = ItemA.objects.aggregate(new=Sum('age'), m=Avg('age'), p=Max('class_number'))
+    >>> data
+    {'new': 84, 'm': 16.8, 'p': 8}
+    >>> data['p']
+    8
+
+    ----------------------------------------------------------------------------------------------------------
+
+    -- import CSV(excel file) Data to model
+
+    - $var = import-csv .\books.csv | ConvertTo-Json
+    - $var | Add-Content -path "mydata.json"
+
+    = Will create new file with json format
+
+    - handel this json file
+        "model": "book.book",
+        "id": "1",
+        "fields": {
+            ~
+            ~
+            ~
+        }
+
+        ** Add 'fields' before fields
+
+    - json file ready
+
+    - py manage.py loaddate mydata.json
 
 """
